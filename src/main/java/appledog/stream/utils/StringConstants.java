@@ -55,4 +55,17 @@ public class StringConstants implements Serializable {
     public static final String DATA_SOURCE_OFFSET_BATCH_SIZE = "dataSource.offset.batch.size";
     public static final String DATA_SOURCE_OFFSET_STREAM_SIZE ="dataSource.offset.stream.size";
     public static final String DATA_SOURCE_SELECT_BATCH_SIZE = "dataSource.select.batch.size";
+
+    public static final String PR_OUTPUT_SERVICES = "";
+    public static final String TABLE_NAME = "TableName";
+    public static final String SCHEMA_NAME = "SchemaName";
+    public static final String FILE_ARRAY = "FileArray";
+    public static final String FILE_NAME = "Filename";
+    public static final String PATH_NAME = "Pathname";
+    public static final String USER = "User";
+    public static final String USER_HEADER = "UserHeader";
+    public static final String FIELD_LIST = "FieldList";
+    public static final String MY_ACTION = "MyAction";
+    public static final String ENGINE = "Engine";
+    public static final String SQL_TYPE ="SqlType";
 }

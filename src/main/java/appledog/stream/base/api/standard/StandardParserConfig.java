@@ -1,6 +1,8 @@
 package appledog.stream.base.api.standard;
 
+import appledog.stream.base.database.utils.DatabaseUtils;
 import appledog.stream.base.redis.utils.RedisUtils;
+import appledog.stream.utils.Security;
 import appledog.stream.utils.StringConstants;
 import org.apache.spark.SparkConf;
 import org.w3c.dom.Document;
@@ -61,50 +63,29 @@ public class StandardParserConfig implements Serializable {
         return properties;
     }
 
+    public static Map<PropertyDescriptor, String> parserDb(Properties properties) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
+        Map<PropertyDescriptor, String> mapProps = new HashMap<>();
 
-    public static Map<PropertyDescriptor, String> parserRedis(Document document) {
+        String connectionString = properties.getProperty("dataSource.uri");
+        String user = properties.getProperty("dataSource.user");
+        String password = (Security.getInstance().decrypt(properties.getProperty("dataSource.password")));
 
-        Map<PropertyDescriptor, String> properties = new HashMap<>();
-        document.getDocumentElement().normalize();
-        Element element = document.getDocumentElement();
-        String redisMode = element.getElementsByTagName("redisMode").item(0).getTextContent();
-        String connectionString = element.getElementsByTagName("connectionString").item(0).getTextContent();
-        String communicationTimeOut = element.getElementsByTagName("communicationTimeOut").item(0).getTextContent();
-        String clusterMaxRedirects = element.getElementsByTagName("clusterMaxRedirects").item(0).getTextContent();
-        String sentinelMaster = element.getElementsByTagName("sentinelMaster").item(0).getTextContent();
-        String password = element.getElementsByTagName("password").item(0).getTextContent();
-        String poolMaxTotal = element.getElementsByTagName("poolMaxTotal").item(0).getTextContent();
-        String pollMaxIdle = element.getElementsByTagName("pollMaxIdle").item(0).getTextContent();
-        String pollMinIdle = element.getElementsByTagName("pollMinIdle").item(0).getTextContent();
-        String poolBlockWhenExhausted = element.getElementsByTagName("poolBlockWhenExhausted").item(0).getTextContent();
-        String poolMaxWaitTime = element.getElementsByTagName("poolMaxWaitTime").item(0).getTextContent();
-        String poolMinEvictableIdleTime = element.getElementsByTagName("poolMinEvictableIdleTime").item(0).getTextContent();
-        String poolTimeBetweenEvictionRuns = element.getElementsByTagName("poolTimeBetweenEvictionRuns").item(0).getTextContent();
-        String poolNumTestsPerEvictionRun = element.getElementsByTagName("poolNumTestsPerEvictionRun").item(0).getTextContent();
-        String poolTestOnCreate = element.getElementsByTagName("poolTestOnCreate").item(0).getTextContent();
-        String poolTestOnBorrow = element.getElementsByTagName("poolTestOnBorrow").item(0).getTextContent();
-        String poolTestOnReturn = element.getElementsByTagName("poolTestOnReturn").item(0).getTextContent();
-        String poolTestWhileIdle = element.getElementsByTagName("poolTestWhileIdle").item(0).getTextContent();
-
-        properties.put(RedisUtils.REDIS_MODE, redisMode);
-        properties.put(RedisUtils.CONNECTION_STRING, connectionString);
-        properties.put(RedisUtils.COMMUNICATION_TIMEOUT, communicationTimeOut);
-        properties.put(RedisUtils.CLUSTER_MAX_REDIRECTS, clusterMaxRedirects);
-        properties.put(RedisUtils.SENTINEL_MASTER, sentinelMaster);
-        properties.put(RedisUtils.PASSWORD, password);
-        properties.put(RedisUtils.POOL_MAX_TOTAL, poolMaxTotal);
-        properties.put(RedisUtils.POOL_MAX_IDLE, pollMaxIdle);
-        properties.put(RedisUtils.POOL_MIN_IDLE, pollMinIdle);
-        properties.put(RedisUtils.POOL_BLOCK_WHEN_EXHAUSTED, poolBlockWhenExhausted);
-        properties.put(RedisUtils.POOL_MAX_WAIT_TIME, poolMaxWaitTime);
-        properties.put(RedisUtils.POOL_MIN_EVICTABLE_IDLE_TIME, poolMinEvictableIdleTime);
-        properties.put(RedisUtils.POOL_TIME_BETWEEN_EVICTION_RUNS, poolTimeBetweenEvictionRuns);
-        properties.put(RedisUtils.POOL_NUM_TESTS_PER_EVICTION_RUN, poolNumTestsPerEvictionRun);
-        properties.put(RedisUtils.POOL_TEST_ON_CREATE, poolTestOnCreate);
-        properties.put(RedisUtils.POOL_TEST_ON_BORROW, poolTestOnBorrow);
-        properties.put(RedisUtils.POOL_TEST_ON_RETURN, poolTestOnReturn);
-        properties.put(RedisUtils.POOL_TEST_WHILE_IDLE, poolTestWhileIdle);
-
-        return properties;
+        String minimumIdle = properties.getProperty("dataSource.minimum.idle");
+        String poolSize = properties.getProperty("dataSource.pool.size");
+        String cachePrepStmts = properties.getProperty("dataSource.cachePrepStmts");
+        String prepStmtCacheSize = properties.getProperty("dataSource.prepStmtCacheSize");
+        String prepStmtCacheSqlLimit = properties.getProperty("dataSource.prepStmtCacheSqlLimit");
+        String[] splitConnectionString = connectionString.split(":");
+        mapProps.put(DatabaseUtils.DATABASE_TYPE,splitConnectionString[1]);
+        mapProps.put(DatabaseUtils.DRIVER, "oracle.jdbc.driver.OracleDriver");
+        mapProps.put(DatabaseUtils.CONNECTION_STRING, connectionString);
+        mapProps.put(DatabaseUtils.USER, user);
+        mapProps.put(DatabaseUtils.PASSWORD, password);
+        mapProps.put(DatabaseUtils.MINIMUM_IDLE, minimumIdle);
+        mapProps.put(DatabaseUtils.POOL_SIZE, poolSize);
+        mapProps.put(DatabaseUtils.CACHE_PREP_STMTS, cachePrepStmts);
+        mapProps.put(DatabaseUtils.PREP_STMTS_CACHE_SIZE, prepStmtCacheSize);
+        mapProps.put(DatabaseUtils.PREP_STMTS_CACHE_SQL_LIMIT, prepStmtCacheSqlLimit);
+        return mapProps;
     }
 }

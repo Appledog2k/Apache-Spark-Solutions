@@ -60,9 +60,11 @@ public abstract class BaseSparkKafkaStream extends BaseApplication {
                     BroadcastTag.classTag(SplitOffsetSizeRecord.class));
             logger.info("created Broadcast SplitOffsetSizeRecord");
 
+            int repartitionNumber = repartitionNumber();
+            logger.info("repartitionNumber size={}", repartitionNumber);
             stream.foreachRDD(rdd -> {
                 if (!rdd.isEmpty()) {
-                    execute(rdd);
+                    execute(rdd.repartition(repartitionNumber));
                     OffsetRange[] offsetRanges = ((HasOffsetRanges) rdd.rdd()).offsetRanges();
                     ((CanCommitOffsets) stream.inputDStream()).commitAsync(offsetRanges);
                 }
@@ -72,7 +74,7 @@ public abstract class BaseSparkKafkaStream extends BaseApplication {
             javaStreamingContext.awaitTermination();
 
         } catch (Exception e) {
-            logger.error("run base spark kafka stream error");
+            logger.error("run base spark kafka stream error: {}", e);
             throw new InterruptedException();
         }
     }

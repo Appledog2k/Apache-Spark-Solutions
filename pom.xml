@@ -88,5 +88,23 @@
             <version>20230227</version>
         </dependency>
 
+        <!-- Db package -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>19.14.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.database.ha</groupId>
+            <artifactId>simplefan</artifactId>
+            <version>19.14.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- end Db package -->
     </dependencies>
 </project>

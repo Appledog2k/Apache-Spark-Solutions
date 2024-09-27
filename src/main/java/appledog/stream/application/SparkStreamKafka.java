@@ -11,6 +11,8 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.types.DataTypes;
+import org.apache.spark.sql.types.StructType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,13 +51,15 @@ public class SparkStreamKafka extends BaseSparkKafkaStream {
 
         // Convert RDD to DataFrame
         SparkSession spark = SparkSession.builder().master("local[*]").getOrCreate();
-        Dataset<Row> df = spark.createDataFrame(rowRDD,
-                org.apache.spark.sql.types.DataTypes.createStructType(List.of(
-                        org.apache.spark.sql.types.DataTypes.createStructField("CIF", org.apache.spark.sql.types.DataTypes.StringType, true),
-                        org.apache.spark.sql.types.DataTypes.createStructField("Product code", org.apache.spark.sql.types.DataTypes.StringType, true),
-                        org.apache.spark.sql.types.DataTypes.createStructField("Customer Type", org.apache.spark.sql.types.DataTypes.StringType, true)
-                ))
-        );
+
+        // Create DataFrame schema
+        StructType schema = DataTypes.createStructType(List.of(
+                DataTypes.createStructField("CIF", DataTypes.StringType, true),
+                DataTypes.createStructField("Product code", DataTypes.StringType, true),
+                DataTypes.createStructField("Customer Type", DataTypes.StringType, true)
+        ));
+
+        Dataset<Row> df = spark.createDataFrame(rowRDD, schema);
 
         // Show DataFrame content (this will print to console)
         df.show();

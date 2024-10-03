@@ -1,15 +1,15 @@
 package appledog.stream.application;
 
 import appledog.stream.base.api.serializer.StringSerializer;
-import appledog.stream.base.spark.BaseOracleSyncData;
+import appledog.stream.base.spark.BaseOracleSyncToRedisData;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SparkOracleSyncData extends BaseOracleSyncData {
+public class SparkOracleSyncToRedisData extends BaseOracleSyncToRedisData {
     private static final Logger logger = LoggerFactory.getLogger(SparkStreamKafka.class);
-    public SparkOracleSyncData(String configPath, String applicationName) {
+    public SparkOracleSyncToRedisData(String configPath, String applicationName) {
         super(configPath, applicationName);
     }
 
@@ -30,7 +30,7 @@ public class SparkOracleSyncData extends BaseOracleSyncData {
 
     public static void main(String[] args) {
         String configPath = args.length == 0 ? System.getProperty("user.dir") + "/config/application.properties" : args[0];
-        SparkOracleSyncData sparkOracleSyncData = new SparkOracleSyncData(configPath, SparkOracleSyncData.class.getName());
+        SparkOracleSyncToRedisData sparkOracleSyncData = new SparkOracleSyncToRedisData(configPath, SparkOracleSyncToRedisData.class.getName());
         sparkOracleSyncData.start();
     }
 }

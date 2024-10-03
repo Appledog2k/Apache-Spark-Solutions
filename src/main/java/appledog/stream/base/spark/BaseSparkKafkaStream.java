@@ -2,7 +2,7 @@ package appledog.stream.base.spark;
 
 import appledog.stream.connectors.KafkaStreamConnector;
 import appledog.stream.connectors.RedisConnector;
-import appledog.stream.pub.SparkKafkaProducer;
+import appledog.stream.base.kafka.services.SparkKafkaProducer;
 import appledog.stream.spliting.SplitOffsetSizeRecord;
 import appledog.stream.utils.BroadcastTag;
 import appledog.stream.utils.StringConstants;

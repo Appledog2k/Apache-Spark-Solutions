@@ -1,4 +1,4 @@
-package appledog.stream.pub;
+package appledog.stream.base.kafka.services;
 
 import appledog.stream.utils.StringConstants;
 import org.apache.kafka.clients.CommonClientConfigs;

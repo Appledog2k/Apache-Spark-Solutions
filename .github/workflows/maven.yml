@@ -3,8 +3,6 @@ name: Build and Release JAR
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 jobs:
   build:
@@ -23,7 +21,9 @@ jobs:
     
     - name: Get JAR file name
       id: get-jar-file
-      run: echo "JAR_FILE=$(ls target/*.jar | grep -v original)" >> $GITHUB_OUTPUT
+      run: |
+        echo "JAR_FILE=$(ls target/*.jar | grep -v original)" >> $GITHUB_OUTPUT
+        echo "JAR_NAME=$(basename $(ls target/*.jar | grep -v original))" >> $GITHUB_OUTPUT
 
     - name: Create Release
       id: create_release
@@ -43,5 +43,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ${{ steps.get-jar-file.outputs.JAR_FILE }}
-        asset_name: Spark-Project.jar
+        asset_name: ${{ steps.get-jar-file.outputs.JAR_NAME }}
         asset_content_type: application/java-archive

@@ -1,14 +1,10 @@
-name: Java CI with Maven
+name: Build and Release JAR
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
-permissions:
-  contents: write
-  security-events: write
 
 jobs:
   build:
@@ -21,20 +17,31 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@v3
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-    # Create a GitHub release
+      run: mvn clean package
+    
+    - name: Get JAR file name
+      id: get-jar-file
+      run: echo "JAR_FILE=$(ls target/*.jar | grep -v original)" >> $GITHUB_OUTPUT
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
         tag_name: v${{ github.run_number }}
         release_name: Release ${{ github.run_number }}
         draft: false
         prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ steps.get-jar-file.outputs.JAR_FILE }}
+        asset_name: Spark-Project.jar
+        asset_content_type: application/java-archive

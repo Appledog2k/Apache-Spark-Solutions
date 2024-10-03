@@ -52,7 +52,7 @@ public class AllowableValue implements Serializable {
 
     @Override
     public int hashCode() {
-        return 23984731 + 17 * value.hashCode();
+        return 123456789 + 26 * value.hashCode();
     }
 
     @Override

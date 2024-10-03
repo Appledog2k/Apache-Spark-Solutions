@@ -51,7 +51,6 @@ public class PropertyDescriptor implements Serializable {
             if (null != displayName) {
                 this.displayName = displayName;
             }
-
             return this;
         }
 

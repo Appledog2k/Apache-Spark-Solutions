@@ -1,7 +1,7 @@
-package appledog.stream.base.redis.iface;
+package appledog.stream.base.redis.interfaces;
 
-import appledog.stream.base.api.iface.Deserializer;
-import appledog.stream.base.api.iface.Serializer;
+import appledog.stream.base.api.interfaces.Deserializer;
+import appledog.stream.base.api.interfaces.Serializer;
 
 import java.io.IOException;
 import java.io.Serializable;

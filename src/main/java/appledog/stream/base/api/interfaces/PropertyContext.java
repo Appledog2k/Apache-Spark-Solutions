@@ -1,4 +1,4 @@
-package appledog.stream.base.api.iface;
+package appledog.stream.base.api.interfaces;
 
 import appledog.stream.base.api.standard.PropertyDescriptor;
 

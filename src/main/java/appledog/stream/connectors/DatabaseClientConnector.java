@@ -1,10 +1,9 @@
-package appledog.stream.connector;
+package appledog.stream.connectors;
 
 import appledog.stream.base.database.services.DatabaseClientService;
 import appledog.stream.utils.PropertiesFileReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import scala.reflect.ClassTag;
 
 import javax.crypto.NoSuchPaddingException;
 import java.io.Serializable;

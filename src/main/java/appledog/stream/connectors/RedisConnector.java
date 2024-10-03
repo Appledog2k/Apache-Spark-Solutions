@@ -1,9 +1,9 @@
-package appledog.stream.connector;
+package appledog.stream.connectors;
 
-import appledog.stream.base.api.iface.Deserializer;
-import appledog.stream.base.api.iface.Serializer;
-import appledog.stream.base.redis.iface.DistributedMapCacheClient;
-import appledog.stream.base.redis.service.RedisDistributedMapCacheClientService;
+import appledog.stream.base.api.interfaces.Deserializer;
+import appledog.stream.base.api.interfaces.Serializer;
+import appledog.stream.base.redis.interfaces.DistributedMapCacheClient;
+import appledog.stream.base.redis.services.RedisDistributedMapCacheClientService;
 import appledog.stream.utils.StringConstants;
 import org.apache.spark.SparkConf;
 import org.slf4j.Logger;

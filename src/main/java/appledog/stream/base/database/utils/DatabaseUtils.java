@@ -1,6 +1,6 @@
 package appledog.stream.base.database.utils;
 
-import appledog.stream.base.api.iface.PropertyContext;
+import appledog.stream.base.api.interfaces.PropertyContext;
 import appledog.stream.base.api.standard.AllowableValue;
 import appledog.stream.base.api.standard.PropertyDescriptor;
 import appledog.stream.base.database.services.DbConnectionFactory;
@@ -16,11 +16,20 @@ public class DatabaseUtils implements Serializable {
     public static final AllowableValue DB_MODE_ORACLE = new AllowableValue(DatabaseType.ORACLE.getDisplayName(),
             DatabaseType.ORACLE.getDisplayName(), DatabaseType.ORACLE.getDescription());
 
+    public static final AllowableValue DB_MODE_MYSQL = new AllowableValue(DatabaseType.MYSQL.getDisplayName(),
+            DatabaseType.MYSQL.getDisplayName(), DatabaseType.MYSQL.getDescription());
+
+    public static final AllowableValue DB_MODE_POSTGRES = new AllowableValue(DatabaseType.POSTGRES.getDisplayName(),
+            DatabaseType.POSTGRES.getDisplayName(), DatabaseType.POSTGRES.getDescription());
+
+    public static final AllowableValue DB_MODE_SQLSERVER = new AllowableValue(DatabaseType.SQLSERVER.getDisplayName(),
+            DatabaseType.SQLSERVER.getDisplayName(), DatabaseType.SQLSERVER.getDescription());
+
     public static final PropertyDescriptor DATABASE_TYPE = new PropertyDescriptor.Builder()
             .name("Database Type")
             .displayName("Database Type")
             .description("The type of Database being communicated with - oracle, mysql, postgres, or sql server.")
-            .allowableValues(DB_MODE_ORACLE)
+            .allowableValues(DB_MODE_ORACLE, DB_MODE_MYSQL, DB_MODE_POSTGRES, DB_MODE_SQLSERVER)
             .defaultValue(DB_MODE_ORACLE.getValue()).required(true).build();
 
 
@@ -28,7 +37,10 @@ public class DatabaseUtils implements Serializable {
             .name("Connection String")
             .displayName("Connection String")
             .description("The connection string for Database." +
-                    " In a Oracle instance this value will be of the form jdbc:oracle:... ")
+                    "In a Oracle instance this value will be of the form jdbc:oracle:... " +
+                    "In a Mysql instance this value will be of the form jdbc:mysql:... " +
+                    "In a Postgres instance this value will be of the form jdbc:postgres:..." +
+                    "In a Sql Server instance this value will be of the form jdbc:sqlserver:...")
             .required(true).build();
 
     public static final PropertyDescriptor DRIVER = new PropertyDescriptor.Builder()

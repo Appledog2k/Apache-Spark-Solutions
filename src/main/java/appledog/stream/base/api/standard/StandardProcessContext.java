@@ -1,7 +1,7 @@
 package appledog.stream.base.api.standard;
 
-import appledog.stream.base.api.iface.PropertyContext;
-import appledog.stream.base.api.iface.PropertyValue;
+import appledog.stream.base.api.interfaces.PropertyContext;
+import appledog.stream.base.api.interfaces.PropertyValue;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

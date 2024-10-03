@@ -1,4 +1,4 @@
-package appledog.stream.base.redis.iface;
+package appledog.stream.base.redis.interfaces;
 
 import org.springframework.data.redis.connection.RedisConnection;
 

@@ -1,6 +1,6 @@
 package appledog.stream.base.api.standard;
 
-import appledog.stream.base.api.iface.PropertyValue;
+import appledog.stream.base.api.interfaces.PropertyValue;
 import appledog.stream.base.redis.utils.FormatUtils;
 
 import java.util.concurrent.TimeUnit;

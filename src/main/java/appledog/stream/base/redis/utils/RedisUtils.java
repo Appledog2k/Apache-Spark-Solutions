@@ -1,6 +1,6 @@
 package appledog.stream.base.redis.utils;
 
-import appledog.stream.base.api.iface.PropertyContext;
+import appledog.stream.base.api.interfaces.PropertyContext;
 import appledog.stream.base.api.standard.AllowableValue;
 import appledog.stream.base.api.standard.PropertyDescriptor;
 import org.slf4j.Logger;

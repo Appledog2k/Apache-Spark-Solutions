@@ -1,7 +1,7 @@
 package appledog.stream.base.api.serializer;
 
-import appledog.stream.base.api.iface.Deserializer;
-import appledog.stream.base.redis.exception.DeserializationException;
+import appledog.stream.base.api.interfaces.Deserializer;
+import appledog.stream.base.redis.exceptions.DeserializationException;
 
 public class StringValueDeserializer implements Deserializer<String> {
     @Override

@@ -1,12 +1,10 @@
 package appledog.stream.base.spark;
 
-import appledog.stream.connector.DatabaseClientConnector;
-import appledog.stream.connector.RedisConnector;
+import appledog.stream.connectors.DatabaseClientConnector;
+import appledog.stream.connectors.RedisConnector;
 import appledog.stream.utils.BroadcastTag;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
-import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.broadcast.Broadcast;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;

@@ -2,7 +2,10 @@ package appledog.stream.base.database.utils;
 
 public enum DatabaseType {
 
-    ORACLE("oracle", "Oracle Database.");
+    ORACLE("oracle", "Oracle Database."),
+    MYSQL("mysql", "MySQL Database."),
+    POSTGRES("postgres", "Postgres Database."),
+    SQLSERVER("sqlserver", "SQL Server Database.");
 
     private final String displayName;
 

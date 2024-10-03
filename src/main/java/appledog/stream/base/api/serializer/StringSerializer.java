@@ -1,7 +1,8 @@
 package appledog.stream.base.api.serializer;
 
-import appledog.stream.base.api.iface.Serializer;
-import appledog.stream.base.redis.exception.SerializationException;
+import appledog.stream.base.api.interfaces.Serializer;
+import appledog.stream.base.redis.exceptions.SerializationException;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;

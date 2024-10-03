@@ -1,12 +1,12 @@
-package appledog.stream.base.redis.service;
+package appledog.stream.base.redis.services;
 
-import appledog.stream.base.api.iface.Deserializer;
-import appledog.stream.base.api.iface.PropertyContext;
-import appledog.stream.base.api.iface.Serializer;
+import appledog.stream.base.api.interfaces.Deserializer;
+import appledog.stream.base.api.interfaces.PropertyContext;
+import appledog.stream.base.api.interfaces.Serializer;
 import appledog.stream.base.api.standard.Tuple;
-import appledog.stream.base.redis.iface.DistributedMapCacheClient;
-import appledog.stream.base.redis.iface.RedisAction;
-import appledog.stream.base.redis.iface.RedisConnectionPool;
+import appledog.stream.base.redis.interfaces.DistributedMapCacheClient;
+import appledog.stream.base.redis.interfaces.RedisAction;
+import appledog.stream.base.redis.interfaces.RedisConnectionPool;
 import appledog.stream.base.redis.utils.RedisStandardProcessContext;
 import org.apache.spark.SparkConf;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package appledog.stream.base.database.services;
 
-import appledog.stream.base.api.iface.PropertyContext;
+import appledog.stream.base.api.interfaces.PropertyContext;
 import appledog.stream.base.database.interfaces.DatabaseAction;
 import appledog.stream.base.database.interfaces.DatabaseClient;
 import appledog.stream.base.database.interfaces.DatabaseConnectionPool;

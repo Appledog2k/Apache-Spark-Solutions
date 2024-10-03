@@ -21,7 +21,7 @@ public class Security {
     private static Security instance;
 
     private Security() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException {
-        byte[] arrayBytes = "FPT-IS-DPA-2024".getBytes(Charset.defaultCharset());
+        byte[] arrayBytes = "Đây là mã bí mật".getBytes(Charset.defaultCharset());
         KeySpec ks = new DESedeKeySpec(arrayBytes);
         SecretKeyFactory skf = SecretKeyFactory.getInstance(DESEDE_ENCRYPTION_SCHEME);
         cipher = Cipher.getInstance(DESEDE_ENCRYPTION_SCHEME);

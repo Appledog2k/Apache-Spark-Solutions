@@ -1,7 +1,7 @@
-package appledog.stream.base.redis.service;
+package appledog.stream.base.redis.services;
 
-import appledog.stream.base.api.iface.PropertyContext;
-import appledog.stream.base.redis.iface.RedisConnectionPool;
+import appledog.stream.base.api.interfaces.PropertyContext;
+import appledog.stream.base.redis.interfaces.RedisConnectionPool;
 import appledog.stream.base.redis.utils.RedisType;
 import appledog.stream.base.redis.utils.RedisUtils;
 import org.slf4j.Logger;

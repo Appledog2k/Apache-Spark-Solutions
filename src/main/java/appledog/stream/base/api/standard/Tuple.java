@@ -2,7 +2,7 @@ package appledog.stream.base.api.standard;
 
 import java.io.Serializable;
 
-public class Tuple<A,B> implements Serializable {
+public class Tuple<A, B> implements Serializable {
     final transient A key;
     final transient B value;
 
@@ -43,16 +43,10 @@ public class Tuple<A,B> implements Serializable {
         }
 
         if (value == null) {
-            if (tuple.value != null) {
-                return false;
-            }
+            return tuple.value == null;
         } else {
-            if (!value.equals(tuple.value)) {
-                return false;
-            }
+            return value.equals(tuple.value);
         }
-
-        return true;
     }
 
     @Override

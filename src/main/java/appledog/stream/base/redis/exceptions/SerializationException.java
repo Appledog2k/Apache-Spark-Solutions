@@ -1,4 +1,4 @@
-package appledog.stream.base.redis.exception;
+package appledog.stream.base.redis.exceptions;
 
 public class SerializationException extends RuntimeException {
 

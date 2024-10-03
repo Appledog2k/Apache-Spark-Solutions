@@ -52,6 +52,7 @@ public class StreamingUtils {
     public static void offLog() {
         org.apache.log4j.Logger.getLogger("org").setLevel(Level.OFF);
         org.apache.log4j.Logger.getLogger("akka").setLevel(Level.OFF);
+        org.apache.log4j.Logger.getLogger("kafka").setLevel(Level.OFF);
     }
 
 

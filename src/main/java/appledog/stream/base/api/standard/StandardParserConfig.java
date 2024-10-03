@@ -77,7 +77,21 @@ public class StandardParserConfig implements Serializable {
         String prepStmtCacheSqlLimit = properties.getProperty("dataSource.prepStmtCacheSqlLimit");
         String[] splitConnectionString = connectionString.split(":");
         mapProps.put(DatabaseUtils.DATABASE_TYPE,splitConnectionString[1]);
-        mapProps.put(DatabaseUtils.DRIVER, "oracle.jdbc.driver.OracleDriver");
+        switch (splitConnectionString[1]) {
+            case "mysql":
+                mapProps.put(DatabaseUtils.DRIVER, "com.mysql.jdbc.Driver");
+                break;
+            case "postgres":
+                mapProps.put(DatabaseUtils.DRIVER, "org.postgresql.Driver");
+                break;
+            case "sqlserver":
+                mapProps.put(DatabaseUtils.DRIVER, "com.microsoft.sqlserver");
+                break;
+            default:
+                mapProps.put(DatabaseUtils.DRIVER, "oracle.jdbc.driver.OracleDriver");
+                break;
+
+        }
         mapProps.put(DatabaseUtils.CONNECTION_STRING, connectionString);
         mapProps.put(DatabaseUtils.USER, user);
         mapProps.put(DatabaseUtils.PASSWORD, password);

@@ -25,3 +25,5 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}

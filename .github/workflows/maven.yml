@@ -27,3 +27,7 @@ jobs:
       uses: advanced-security/maven-dependency-submission-action@v3
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
+    - name: Publish package
+      run: mvn --batch-mode deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}

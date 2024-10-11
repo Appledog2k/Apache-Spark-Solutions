@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SparkStreamKafka extends BaseSparkKafkaStream {
-    private static final Logger logger = LoggerFactory.getLogger(SparkStreamKafka.class);
+    private static final Logger logger = LoggerFactory.getLogger(SparkStreamKafka.class.getSimpleName());
 
     public SparkStreamKafka(String configPath, String applicationName) {
         super(configPath, applicationName);
@@ -64,6 +64,7 @@ public class SparkStreamKafka extends BaseSparkKafkaStream {
         // Show DataFrame content (this will print to console)
         df.show();
     }
+
     public static void main(String[] args) {
         StreamingUtils.offLog();
         String configPath = args.length == 0 ? System.getProperty("user.dir") + "/config/application.properties" : args[0];

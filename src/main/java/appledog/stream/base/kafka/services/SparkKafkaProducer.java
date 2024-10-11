@@ -58,6 +58,7 @@ public class SparkKafkaProducer implements Serializable {
         Runtime.getRuntime().addShutdownHook(new Thread(this::close));
         return new KafkaProducer<>(kafkaProperties);
     }
+
     public void close() {
         producer.close();
     }
@@ -109,5 +110,10 @@ public class SparkKafkaProducer implements Serializable {
                         +recordMetadata.partition(), recordMetadata.offset());
             }
         }
+    }
+
+    // flush producer
+    public void flush() {
+        producer.flush();
     }
 }

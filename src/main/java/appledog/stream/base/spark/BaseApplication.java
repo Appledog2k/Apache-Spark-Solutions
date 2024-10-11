@@ -21,6 +21,7 @@ public abstract class BaseApplication extends SparkSessionWrapper {
             close();
         }
     }
+
     public void init(SparkContext sparkContext) throws InterruptedException {
     }
 }

@@ -11,10 +11,11 @@ import org.apache.spark.sql.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class BaseOracleSyncToRedisData extends BaseApplication{
+public abstract class BaseOracleSyncToRedisData extends BaseApplication {
     private static final Logger logger = LoggerFactory.getLogger(BaseOracleSyncToRedisData.class);
     protected Broadcast<DatabaseClientConnector> broadcastDatabaseClientConnector;
     protected Broadcast<RedisConnector> broadcastRedisConnector;
+
     protected BaseOracleSyncToRedisData(String configPath, String applicationName) {
         super(configPath, applicationName);
     }

@@ -26,6 +26,7 @@ public abstract class BaseSparkKafkaStream extends BaseApplication {
     protected Broadcast<SparkKafkaProducer> broadcastSparkKafkaProducer;
     protected Broadcast<SplitOffsetSizeRecord> broadcastSplitOffsetSizeRecord;
     protected Broadcast<RedisConnector> broadcastRedisConnector;
+
     protected BaseSparkKafkaStream(String configPath, String applicationName) {
         super(configPath, applicationName);
     }
@@ -45,26 +46,18 @@ public abstract class BaseSparkKafkaStream extends BaseApplication {
             int offsetBatchSize = Integer.parseInt(sparkConf.get(StringConstants.DATA_SOURCE_OFFSET_BATCH_SIZE));
             int offsetStreamSize = Integer.parseInt(sparkConf.get(StringConstants.DATA_SOURCE_OFFSET_STREAM_SIZE));
 
-            broadcastRedisConnector = sparkContext.broadcast(
-                    new RedisConnector(sparkConf),
-                    BroadcastTag.classTag(RedisConnector.class));
+            broadcastRedisConnector = sparkContext.broadcast(new RedisConnector(sparkConf), BroadcastTag.classTag(RedisConnector.class));
             logger.info("created Broadcast RedisConnector");
 
-            broadcastSparkKafkaProducer = sparkContext.broadcast(
-                    new SparkKafkaProducer(sparkConf),
-                    BroadcastTag.classTag(SparkKafkaProducer.class));
+            broadcastSparkKafkaProducer = sparkContext.broadcast(new SparkKafkaProducer(sparkConf), BroadcastTag.classTag(SparkKafkaProducer.class));
             logger.info("created Broadcast SparkKafkaProducer");
 
-            broadcastSplitOffsetSizeRecord = sparkContext.broadcast(
-                    new SplitOffsetSizeRecord(offsetBatchSize, offsetStreamSize),
-                    BroadcastTag.classTag(SplitOffsetSizeRecord.class));
+            broadcastSplitOffsetSizeRecord = sparkContext.broadcast(new SplitOffsetSizeRecord(offsetBatchSize, offsetStreamSize), BroadcastTag.classTag(SplitOffsetSizeRecord.class));
             logger.info("created Broadcast SplitOffsetSizeRecord");
 
-            int repartitionNumber = repartitionNumber();
-            logger.info("repartitionNumber size={}", repartitionNumber);
             stream.foreachRDD(rdd -> {
                 if (!rdd.isEmpty()) {
-                    execute(rdd.repartition(repartitionNumber));
+                    execute(rdd);
                     OffsetRange[] offsetRanges = ((HasOffsetRanges) rdd.rdd()).offsetRanges();
                     ((CanCommitOffsets) stream.inputDStream()).commitAsync(offsetRanges);
                 }

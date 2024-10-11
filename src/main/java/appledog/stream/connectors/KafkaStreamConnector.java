@@ -36,17 +36,11 @@ public interface KafkaStreamConnector {
             String pass = sparkConf.get(StringConstants.KAFKA_PASSWORD);
             kafkaParams.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, secureProtocol);
             kafkaParams.put(SaslConfigs.SASL_MECHANISM, saslMechanism);
-            kafkaParams.put(SaslConfigs.SASL_JAAS_CONFIG,
-                    "org.apache.kafka.common.security.scram.ScramLoginModule" +
-                            " required serviceName=\"" + kafkaServiceName
-                            + "\" username=\"" + user
-                            + "\" password=\"" + pass + "\";");
+            kafkaParams.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.scram.ScramLoginModule" + " required serviceName=\"" + kafkaServiceName + "\" username=\"" + user + "\" password=\"" + pass + "\";");
         }
 
         Pattern topicPattern = Pattern.compile(sparkConf.get(StringConstants.KAFKA_TOPICS_IN));
-        return KafkaUtils.createDirectStream(streamingContext,
-                LocationStrategies.PreferConsistent(),
-                ConsumerStrategies.SubscribePattern(topicPattern, kafkaParams));
+        return KafkaUtils.createDirectStream(streamingContext, LocationStrategies.PreferConsistent(), ConsumerStrategies.SubscribePattern(topicPattern, kafkaParams));
 
     }
 }

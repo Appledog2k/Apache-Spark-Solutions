@@ -24,7 +24,10 @@ public abstract class SparkSessionWrapper implements Serializable {
         this.sparkConf = new SparkConf().setAppName(applicationName);
         Set<String> keyNames = properties.stringPropertyNames();
         keyNames.forEach(keyName -> sparkConf.set(keyName, properties.getProperty(keyName)));
-        this.sparkSession = SparkSession.builder().config(sparkConf).master("local[*]").getOrCreate();
+        this.sparkSession = SparkSession.builder().config(sparkConf)
+                .config("spark.streaming.kafka.maxRatePerPartition", "100")
+                .master("local[*]")
+                .getOrCreate();
     }
 
     public SparkSession getSparkSession() {
@@ -36,32 +39,15 @@ public abstract class SparkSessionWrapper implements Serializable {
     }
 
     public Dataset<Row> readTable(String table) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
-        return sparkSession
-                .read()
-                .format("jdbc")
-                .option("url", "jdbc:oracle:thin:@10.14.222.208:1521:ORCL")
-                .option("dbtable", "MSB_CDP.CDP_CUSTOMER_INFO")
-                .option("user", "msb_cdp")
-                .option("password", "fisdpa2024")
-                .option("driver", "oracle.jdbc.driver.OracleDriver")
-                .load();
+        return sparkSession.read().format("jdbc").option("url", "jdbc:oracle:thin:@10.14.222.208:1521:ORCL").option("dbtable", "MSB_CDP.CDP_CUSTOMER_INFO").option("user", "msb_cdp").option("password", "fisdpa2024").option("driver", "oracle.jdbc.driver.OracleDriver").load();
     }
 
     public Dataset<Row> queryTable(String sql) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
-        return sparkSession
-                .read()
-                .format("jdbc")
-                .option("url", sparkConf.get("dataSource.uri"))
-                .option("user", sparkConf.get("dataSource.user"))
-                .option("password", sparkConf.get("dataSource.password"))
-                .option("driver", sparkConf.get("dataSource.driver"))
-                .option("query", sql)
-                .load();
+        return sparkSession.read().format("jdbc").option("url", sparkConf.get("dataSource.uri")).option("user", sparkConf.get("dataSource.user")).option("password", sparkConf.get("dataSource.password")).option("driver", sparkConf.get("dataSource.driver")).option("query", sql).load();
     }
 
     public int repartitionNumber() {
-        int coresMax = Integer.parseInt(sparkSession.sparkContext().conf()
-                .get("spark.cores.max"));
+        int coresMax = Integer.parseInt(sparkSession.sparkContext().conf().get("spark.cores.max"));
         return coresMax * 5;
     }
 

@@ -38,12 +38,9 @@ public class RedisConnector implements Serializable {
         Map<byte[], byte[]> messageBody = new HashMap<>();
         logger.info("send stream key ={}", streamKey);
         logger.debug("send message ={}", message);
-        messageBody.put(StringConstants.DATA.getBytes(StandardCharsets.UTF_8),
-                message.getBytes(StandardCharsets.UTF_8));
-        messageBody.put(StringConstants.KAFKA_TOPIC.getBytes(StandardCharsets.UTF_8),
-                kafkaTopicOut.getBytes(StandardCharsets.UTF_8));
-        messageBody.put(StringConstants.VALUE_TS.getBytes(StandardCharsets.UTF_8),
-                String.valueOf(System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8));
+        messageBody.put(StringConstants.DATA.getBytes(StandardCharsets.UTF_8), message.getBytes(StandardCharsets.UTF_8));
+        messageBody.put(StringConstants.KAFKA_TOPIC.getBytes(StandardCharsets.UTF_8), kafkaTopicOut.getBytes(StandardCharsets.UTF_8));
+        messageBody.put(StringConstants.VALUE_TS.getBytes(StandardCharsets.UTF_8), String.valueOf(System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8));
         if (distributedMapCacheClient == null) {
             distributedMapCacheClient = init();
         }
@@ -54,16 +51,12 @@ public class RedisConnector implements Serializable {
         Map<byte[], byte[]> messageBody = new HashMap<>();
         logger.info("send stream key ={}", streamKey);
         logger.debug("send message ={}", message);
-        messageBody.put(StringConstants.DATA.getBytes(StandardCharsets.UTF_8),
-                message.getBytes(StandardCharsets.UTF_8));
-        messageBody.put(StringConstants.KAFKA_TOPIC.getBytes(StandardCharsets.UTF_8),
-                kafkaTopicOut.getBytes(StandardCharsets.UTF_8));
-        messageBody.put(StringConstants.VALUE_TS.getBytes(StandardCharsets.UTF_8),
-                String.valueOf(System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8));
+        messageBody.put(StringConstants.DATA.getBytes(StandardCharsets.UTF_8), message.getBytes(StandardCharsets.UTF_8));
+        messageBody.put(StringConstants.KAFKA_TOPIC.getBytes(StandardCharsets.UTF_8), kafkaTopicOut.getBytes(StandardCharsets.UTF_8));
+        messageBody.put(StringConstants.VALUE_TS.getBytes(StandardCharsets.UTF_8), String.valueOf(System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8));
 
         if (correlationIdByte != null) {
-            messageBody.put(StringConstants.ZILLA_CORRELATION_ID.getBytes(StandardCharsets.UTF_8),
-                    correlationIdByte);
+            messageBody.put(StringConstants.ZILLA_CORRELATION_ID.getBytes(StandardCharsets.UTF_8), correlationIdByte);
         }
         if (distributedMapCacheClient == null) {
             distributedMapCacheClient = init();
@@ -71,40 +64,35 @@ public class RedisConnector implements Serializable {
         distributedMapCacheClient.xAdd(streamKey.getBytes(StandardCharsets.UTF_8), messageBody);
     }
 
-    public void put(String key, String value, Serializer<String> keySerializer,
-                    Serializer<String> valueSerializer) throws IOException {
+    public void put(String key, String value, Serializer<String> keySerializer, Serializer<String> valueSerializer) throws IOException {
         if (distributedMapCacheClient == null) {
             distributedMapCacheClient = init();
         }
         distributedMapCacheClient.put(key, value, keySerializer, valueSerializer);
     }
 
-    public void set(String key, String value, Serializer<String> keySerializer,
-                    Serializer<String> valueSerializer) throws IOException {
+    public void set(String key, String value, Serializer<String> keySerializer, Serializer<String> valueSerializer) throws IOException {
         if (distributedMapCacheClient == null) {
             distributedMapCacheClient = init();
         }
         distributedMapCacheClient.set(key, value, -1L, keySerializer, valueSerializer);
     }
 
-    public void publish(String channel, String value, Serializer<String> keySerializer,
-                        Serializer<String> valueSerializer) throws IOException {
+    public void publish(String channel, String value, Serializer<String> keySerializer, Serializer<String> valueSerializer) throws IOException {
         if (distributedMapCacheClient == null) {
             distributedMapCacheClient = init();
         }
         distributedMapCacheClient.publish(channel, value, keySerializer, valueSerializer);
     }
 
-    public List<String> getList(String key, Serializer<String> keySerializer,
-                                Deserializer<String> valueStringDeserializer) throws IOException {
+    public List<String> getList(String key, Serializer<String> keySerializer, Deserializer<String> valueStringDeserializer) throws IOException {
         if (distributedMapCacheClient == null) {
             distributedMapCacheClient = init();
         }
         return distributedMapCacheClient.getList(key, keySerializer, valueStringDeserializer);
     }
 
-    public String get(String key, Serializer<String> keySerializer,
-                      Deserializer<String> valueStringDeserializer) throws IOException {
+    public String get(String key, Serializer<String> keySerializer, Deserializer<String> valueStringDeserializer) throws IOException {
         if (distributedMapCacheClient == null) {
             distributedMapCacheClient = init();
         }

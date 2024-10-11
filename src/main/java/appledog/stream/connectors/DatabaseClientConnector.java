@@ -18,7 +18,8 @@ public class DatabaseClientConnector implements Serializable {
     private DatabaseClientService databaseClientService = null;
 
     public DatabaseClientConnector(String configPath) {
-        this.properties = PropertiesFileReader.readConfig(configPath);;
+        this.properties = PropertiesFileReader.readConfig(configPath);
+        ;
     }
 
     public DatabaseClientService getDatabaseClientService() throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {

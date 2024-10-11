@@ -8,7 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SparkOracleSyncToRedisData extends BaseOracleSyncToRedisData {
-    private static final Logger logger = LoggerFactory.getLogger(SparkStreamKafka.class);
+    private static final Logger logger = LoggerFactory.getLogger(SparkOracleSyncToRedisData.class.getSimpleName());
+
     public SparkOracleSyncToRedisData(String configPath, String applicationName) {
         super(configPath, applicationName);
     }
@@ -21,7 +22,7 @@ public class SparkOracleSyncToRedisData extends BaseOracleSyncToRedisData {
                 Row r = row.next();
                 String customer_code = r.getAs("CUSTOMER_CODE").toString();
                 String customer_type = r.getAs("CUSTOMER_TYPE").toString();
-                broadcastRedisConnector.getValue().set(customer_code,customer_type, new StringSerializer(), new StringSerializer());
+                broadcastRedisConnector.getValue().set(customer_code, customer_type, new StringSerializer(), new StringSerializer());
                 logger.info("push data to redis: product_code: {}, customer_type: {}", customer_code, customer_type);
             }
         });
